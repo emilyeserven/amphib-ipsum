@@ -37,12 +37,21 @@
           <button id="generate-btn" type="button">Generate</button>
         </div>
 
-        <div class="options">
-          <label class="toggle-label">
-            <input type="checkbox" id="include-scientific" checked />
-            Include scientific names
+        <fieldset class="options scientific-mode">
+          <legend>Scientific names</legend>
+          <label class="radio-label">
+            <input type="radio" name="scientific-mode" value="include" checked />
+            Include
           </label>
-        </div>
+          <label class="radio-label">
+            <input type="radio" name="scientific-mode" value="exclude" />
+            Exclude
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="scientific-mode" value="only" />
+            Only
+          </label>
+        </fieldset>
 
         <button id="copy-btn-top" class="copy-btn hidden" type="button">
           Copy to Clipboard
