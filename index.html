@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amphib Ipsum</title>
+    <meta
+      name="description"
+      content="Lorem ipsum generator with frog and toad themed words"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Amphib Ipsum</h1>
+        <p class="subtitle">lorem ipsum but make it froggy</p>
+      </header>
+
+      <main>
+        <div class="controls">
+          <label for="unit-type" class="sr-only">Output type</label>
+          <select id="unit-type">
+            <option value="paragraphs">Paragraphs</option>
+            <option value="sentences">Sentences</option>
+            <option value="words">Words</option>
+          </select>
+
+          <label for="quantity" class="sr-only">Quantity</label>
+          <input
+            type="number"
+            id="quantity"
+            min="1"
+            max="99"
+            value="3"
+          />
+
+          <button id="generate-btn" type="button">Generate</button>
+        </div>
+
+        <button id="copy-btn-top" class="copy-btn hidden" type="button">
+          Copy to Clipboard
+        </button>
+
+        <div class="output-area" role="region" aria-live="polite">
+          <div id="output">
+            <p class="placeholder">
+              Click Generate to create some froggy text!
+            </p>
+          </div>
+        </div>
+
+        <button id="copy-btn-bottom" class="copy-btn hidden" type="button">
+          Copy to Clipboard
+        </button>
+      </main>
+
+      <footer>
+        <p>Made with 🐸</p>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
