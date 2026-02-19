@@ -1,0 +1,189 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green-dark: #2d5f2d;
+  --green-light: #4a8c3f;
+  --bg: #f4f9f0;
+  --surface: #ffffff;
+  --text: #1a1a2e;
+  --text-muted: #5a7d5a;
+  --accent: #c9a227;
+  --border: #b8d4a8;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--green-dark);
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+select,
+input[type="number"] {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+select:focus,
+input[type="number"]:focus {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+input[type="number"] {
+  width: 5rem;
+  text-align: center;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#generate-btn {
+  background: var(--green-dark);
+  color: var(--surface);
+  font-weight: 600;
+}
+
+#generate-btn:hover {
+  background: var(--green-light);
+}
+
+.copy-btn {
+  display: block;
+  margin: 0.75rem auto;
+  background: transparent;
+  color: var(--green-dark);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1.2rem;
+  font-size: 0.9rem;
+}
+
+.copy-btn:hover {
+  background: var(--border);
+}
+
+.copy-btn.hidden {
+  display: none;
+}
+
+.output-area {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+#output {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+#output p {
+  margin-bottom: 1em;
+}
+
+#output p:last-child {
+  margin-bottom: 0;
+}
+
+.placeholder {
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  select,
+  input[type="number"],
+  #generate-btn {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
