@@ -71,6 +71,29 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--green-dark);
+  cursor: pointer;
+}
+
 select,
 input[type="number"] {
   font-family: inherit;
