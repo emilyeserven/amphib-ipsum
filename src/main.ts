@@ -1,5 +1,5 @@
 import "./style.css";
-import { generate } from "./generator";
+import { generate, type ScientificMode } from "./generator";
 
 type UnitType = "paragraphs" | "sentences" | "words";
 
@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const generateBtn = document.getElementById(
     "generate-btn"
   ) as HTMLButtonElement;
-  const includeScientific = document.getElementById(
-    "include-scientific"
-  ) as HTMLInputElement;
   const output = document.getElementById("output") as HTMLDivElement;
   const copyBtnTop = document.getElementById(
     "copy-btn-top"
@@ -79,7 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
   generateBtn.addEventListener("click", () => {
     const type = unitType.value as UnitType;
     const count = parseInt(quantity.value, 10) || 1;
-    currentText = generate(type, count, includeScientific.checked);
+    const scientificMode = (
+      document.querySelector(
+        'input[name="scientific-mode"]:checked'
+      ) as HTMLInputElement
+    )?.value as ScientificMode ?? "include";
+    currentText = generate(type, count, scientificMode);
     renderOutput(currentText, type);
     showCopyButtons();
   });
