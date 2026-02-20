@@ -3,6 +3,22 @@ import { generate, type ScientificMode } from "./generator";
 
 type UnitType = "paragraphs" | "sentences" | "words";
 
+const VALID_TYPES: UnitType[] = ["paragraphs", "sentences", "words"];
+const VALID_SCIENTIFIC: ScientificMode[] = ["include", "exclude", "only"];
+
+function getSearchParams(): URLSearchParams {
+  return new URLSearchParams(window.location.search);
+}
+
+function updateUrl(type: UnitType, count: number, scientific: ScientificMode) {
+  const params = new URLSearchParams();
+  params.set("type", type);
+  params.set("count", String(count));
+  params.set("scientific", scientific);
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+  window.history.replaceState(null, "", newUrl);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const unitType = document.getElementById("unit-type") as HTMLSelectElement;
   const quantity = document.getElementById("quantity") as HTMLInputElement;
@@ -18,6 +34,30 @@ document.addEventListener("DOMContentLoaded", () => {
   ) as HTMLButtonElement;
 
   let currentText = "";
+
+  // Read URL params and apply to form controls
+  const params = getSearchParams();
+  const paramType = params.get("type") as UnitType | null;
+  const paramCount = params.get("count");
+  const paramScientific = params.get("scientific") as ScientificMode | null;
+
+  if (paramType && VALID_TYPES.includes(paramType)) {
+    unitType.value = paramType;
+  }
+
+  if (paramCount) {
+    const parsed = parseInt(paramCount, 10);
+    if (!Number.isNaN(parsed) && parsed >= 1 && parsed <= 99) {
+      quantity.value = String(parsed);
+    }
+  }
+
+  if (paramScientific && VALID_SCIENTIFIC.includes(paramScientific)) {
+    const radio = document.querySelector(
+      `input[name="scientific-mode"][value="${paramScientific}"]`
+    ) as HTMLInputElement | null;
+    if (radio) radio.checked = true;
+  }
 
   function renderOutput(text: string, type: UnitType) {
     output.innerHTML = "";
@@ -73,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-  generateBtn.addEventListener("click", () => {
+  function doGenerate() {
     const type = unitType.value as UnitType;
     const count = parseInt(quantity.value, 10) || 1;
     const scientificMode = (
@@ -81,10 +121,18 @@ document.addEventListener("DOMContentLoaded", () => {
         'input[name="scientific-mode"]:checked'
       ) as HTMLInputElement
     )?.value as ScientificMode ?? "include";
+    updateUrl(type, count, scientificMode);
     currentText = generate(type, count, scientificMode);
     renderOutput(currentText, type);
     showCopyButtons();
-  });
+  }
+
+  generateBtn.addEventListener("click", doGenerate);
+
+  // Auto-generate if any URL params were provided
+  if (params.has("type") || params.has("count") || params.has("scientific")) {
+    doGenerate();
+  }
 
   copyBtnTop.addEventListener("click", copyToClipboard);
   copyBtnBottom.addEventListener("click", copyToClipboard);
